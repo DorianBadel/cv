@@ -1,0 +1,665 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Dorian Badel - Creative Developer</title>
+    <link rel="icon" type="image/x-icon" href="./user.svg" />
+    <meta name="viewport" content="width=210mm, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@400;600;800&display=swap"
+    />
+    <style>
+      @page {
+        size: A4;
+        margin: 0;
+      }
+      @media print {
+        html,
+        body {
+          background: #ffffff !important;
+        }
+        .no-print {
+          display: none !important;
+        }
+        .print-bg {
+          background: #ffffff !important;
+        }
+        .shadow-lg {
+          box-shadow: none !important;
+        }
+        .technical-grid {
+          background-image: none;
+        }
+      }
+      :root {
+        --accent: #ff3b30;
+        --secondary: #0055ff;
+        --bg: #f4f4f4;
+        --text: #1a1a1a;
+        --body-width: 210mm;
+        --body-height: 297mm;
+
+        /* Brand colors */
+        --softcap: #1da1f2;
+        --leapwise: #c7d55c;
+        --biss: #253364;
+        --uit: #123247;
+        --zagreb: #be2741;
+        --infinum: #c73935;
+        --speck: #b1443f;
+        --email: #664af5;
+        --github: #333333;
+        --linkedin: #0077b5;
+        --stem: #008000;
+        --stak: #dd524c;
+        --toefl: #1b212a;
+      }
+      body {
+        font-family: "Inter", sans-serif;
+        background: var(--bg);
+      }
+      .mono {
+        font-family: "Space Mono", monospace;
+      }
+      .technical-grid {
+        background-image: radial-gradient(circle, #ddd 1px, transparent 1px);
+        background-size: 20px 20px;
+      }
+      .diagonal-split {
+        position: relative;
+        overflow: hidden;
+      }
+      .diagonal-split::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 150%;
+        height: 100%;
+        background: var(--accent);
+        opacity: 0.08;
+        transform: rotate(-15deg);
+        z-index: -1;
+      }
+
+      .photo-frame {
+        position: relative;
+        width: 140px;
+        height: 140px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .photo-frame::before {
+        content: "";
+        position: absolute;
+        top: -10px;
+        left: -10px;
+        right: -10px;
+        bottom: -10px;
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        transform: rotate(-3deg);
+      }
+
+      .photo-frame::after {
+        content: "";
+        position: absolute;
+        top: -5px;
+        left: -5px;
+        right: -5px;
+        bottom: -5px;
+        border: 1px solid var(--accent);
+        opacity: 0.5;
+        transform: rotate(2deg);
+      }
+
+      .skills-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+      }
+
+      .skill-tag {
+        font-size: 0.7rem;
+        padding: 3px 8px;
+        border-radius: 4px;
+        background: rgba(0, 0, 0, 0.05);
+        display: inline-block;
+      }
+
+      .dot-pattern {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        width: 180px;
+        height: 90px;
+        z-index: -1;
+        opacity: 0.4;
+        background-image: radial-gradient(
+          var(--secondary) 1px,
+          transparent 1px
+        );
+        background-size: 10px 10px;
+      }
+
+      .line-graphic {
+        position: absolute;
+        width: 150px;
+        height: 2px;
+        background: var(--accent);
+        opacity: 0.2;
+        transform: rotate(-30deg);
+        right: 80px;
+        bottom: 40px;
+      }
+
+      .line-graphic::after {
+        content: "";
+        position: absolute;
+        width: 100px;
+        height: 2px;
+        background: var(--secondary);
+        opacity: 0.5;
+        transform: rotate(60deg);
+        transform-origin: left center;
+        left: 70%;
+        top: -30px;
+      }
+
+      /* Custom link styling */
+      .link-hover {
+        position: relative;
+        text-decoration: none;
+        transition: color 0.3s ease;
+        padding-bottom: 1px;
+      }
+
+      .link-hover::after {
+        content: "";
+        position: absolute;
+        width: 0;
+        height: 1px;
+        bottom: 0;
+        left: 0;
+        background-color: var(--accent);
+        transition:
+          width 0.3s ease,
+          background-color 0.3s ease;
+      }
+
+      .link-hover:hover {
+        color: var(--accent);
+      }
+
+      .link-hover:hover::after {
+        width: 100%;
+      }
+
+      /* Custom company link styles */
+      .company-link {
+        position: relative;
+        display: inline-block;
+        transition: color 0.3s ease;
+        padding-bottom: 1px;
+      }
+
+      .company-link::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        height: 1px;
+        transition: width 0.3s ease;
+      }
+
+      .company-link:hover::after {
+        width: 100%;
+      }
+
+      /* Company specific styling */
+      .softcap-link:hover {
+        color: var(--softcap);
+      }
+      .softcap-link::after {
+        background-color: var(--softcap);
+      }
+
+      .leapwise-link:hover {
+        color: var(--leapwise);
+      }
+      .leapwise-link::after {
+        background-color: var(--leapwise);
+      }
+
+      .biss-link:hover {
+        color: var(--biss);
+      }
+      .biss-link::after {
+        background-color: var(--biss);
+      }
+
+      .uit-link:hover {
+        color: var(--uit);
+      }
+      .uit-link::after {
+        background-color: var(--uit);
+      }
+
+      .zagreb-link:hover {
+        color: var(--zagreb);
+      }
+      .zagreb-link::after {
+        background-color: var(--zagreb);
+      }
+
+      .infinum-link:hover {
+        color: var(--infinum);
+      }
+      .infinum-link::after {
+        background-color: var(--infinum);
+      }
+
+      .speck-link:hover {
+        color: var(--speck);
+      }
+      .speck-link::after {
+        background-color: var(--speck);
+      }
+
+      .github-link:hover {
+        color: var(--github);
+      }
+      .github-link::after {
+        background-color: var(--github);
+      }
+
+      .linkedin-link:hover {
+        color: var(--linkedin);
+      }
+      .linkedin-link::after {
+        background-color: var(--linkedin);
+      }
+
+      /* Email link */
+      .email-link:hover {
+        color: var(--email);
+      }
+      .email-link::after {
+        background-color: var(--email);
+      }
+
+      .toefl-link:hover {
+        color: var(--toefl);
+      }
+      .toefl-link::after {
+        background-color: var(--toefl);
+      }
+
+      .stak-link:hover {
+        color: var(--stak);
+      }
+      .stak-link::after {
+        background-color: var(--stak);
+      }
+
+      .stem-link:hover {
+        color: var(--stem);
+      }
+      .stem-link::after {
+        background-color: var(--stem);
+      }
+    </style>
+  </head>
+  <body class="min-h-screen flex items-center justify-center">
+    <!-- Print Button -->
+    <button
+      onclick="window.print()"
+      class="no-print fixed top-4 right-4 bg-[--accent] text-white px-4 py-2 rounded-lg shadow-md hover:bg-opacity-90 transition-colors duration-200 flex items-center gap-2 font-medium"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="h-5 w-5"
+        viewBox="0 0 20 20"
+        fill="currentColor"
+      >
+        <path
+          fill-rule="evenodd"
+          d="M5 4v3H4a2 2 0 00-2 2v3a2 2 0 002 2h1v2a2 2 0 002 2h6a2 2 0 002-2v-2h1a2 2 0 002-2V9a2 2 0 00-2-2h-1V4a2 2 0 00-2-2H7a2 2 0 00-2 2zm8 0H7v3h6V4zm0 8H7v4h6v-4z"
+          clip-rule="evenodd"
+        />
+      </svg>
+      Print Resume
+    </button>
+
+    <main
+      class="bg-white w-[--body-width] h-[--body-height] shadow-xl relative overflow-hidden"
+    >
+      <!-- Technical Grid Background -->
+      <div class="technical-grid absolute inset-0 opacity-10"></div>
+
+      <!-- Decorative elements inspired by anime.js -->
+      <div class="dot-pattern"></div>
+      <div class="line-graphic"></div>
+
+      <!-- Header Section -->
+      <header class="p-12 pb-8 relative border-b border-gray-100">
+        <!-- Document Number -->
+        <div class="absolute top-8 right-8 mono text-sm text-gray-400">
+          DOC.1707/2026
+        </div>
+
+        <!-- Main Info -->
+        <div class="flex items-start gap-8">
+          <div class="photo-frame">
+            <img
+              src="profile.jpg"
+              alt="Dorian Badel"
+              class="w-32 h-32 object-cover"
+            />
+            <div class="absolute -bottom-3 -right-3 text-xs text-gray-400 mono">
+              web • design • development
+            </div>
+          </div>
+
+          <div class="flex-1">
+            <h1 class="text-5xl font-black tracking-tight">DORIAN BADEL</h1>
+            <div class="flex items-center gap-2 mt-2">
+              <span class="mono text-[--accent] text-sm"
+                >Master of Computer Science</span
+              >
+              <span class="w-12 h-px bg-gray-300"></span>
+              <span class="font-semibold">Developer</span>
+            </div>
+
+            <!-- Contact Strip -->
+            <div class="mt-6 flex items-center gap-4 text-sm">
+              <a
+                href="mailto:DorianBadel@protonmail.com"
+                class="link-hover email-link"
+              >
+                DorianBadel@protonmail.com
+              </a>
+              <div class="w-px h-4 bg-gray-300"></div>
+              <a
+                href="https://linkedin.com/in/dorian-badel-1b50a2233/"
+                target="_blank"
+                class="link-hover linkedin-link"
+                >LinkedIn</a
+              >
+              <div class="w-px h-4 bg-gray-300"></div>
+              <a
+                href="https://github.com/DorianBadel"
+                target="_blank"
+                class="link-hover github-link"
+                >GitHub</a
+              >
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- Two Column Layout -->
+      <div class="px-12 flex gap-12">
+        <!-- Left Column -->
+        <div class="flex-1">
+          <!-- About Section -->
+          <section class="mb-6 mt-6">
+            <p class="text-sm text-gray-600 leading-relaxed">
+              Computer science student specializing in web development with a
+              commitment to clean, efficient code. Currently exploring the
+              intersection of computer science principles and unified document
+              standards.
+            </p>
+          </section>
+
+          <!-- Experience -->
+          <section class="mb-8">
+            <h2 class="mono text-sm text-[--accent] mb-4">EXPERIENCE_</h2>
+            <div class="space-y-6">
+              <div class="relative pl-6 border-l border-gray-200">
+                <!-- Timeline items with improved structure -->
+                <div class="relative mb-6">
+                  <div
+                    class="absolute -left-[1.85rem] top-2 w-3 h-3 bg-[--accent] rounded-full"
+                  ></div>
+                  <h3 class="font-bold">
+                    Software Developer at
+                    <a
+                      href="https://softcap.no/"
+                      target="_blank"
+                      class="company-link softcap-link"
+                      >SoftCap</a
+                    >
+                  </h3>
+                  <p class="text-sm text-gray-600">
+                    Sep 2024 – Present • Tromsø, Norway
+                  </p>
+                  <p class="text-xs text-gray-500 mt-1">
+                    Working on a centralized solution for investment banking
+                    workflows.
+                  </p>
+                </div>
+
+                <div class="relative mb-6">
+                  <div
+                    class="absolute -left-[1.85rem] top-2 w-3 h-3 bg-gray-300 rounded-full"
+                  ></div>
+                  <h3 class="font-bold">
+                    Junior Front-end developer at
+                    <a
+                      href="https://leapwise.co/"
+                      target="_blank"
+                      class="company-link leapwise-link"
+                      >Leapwise</a
+                    >
+                  </h3>
+                  <p class="text-sm text-gray-600">
+                    Nov 2023 – Jul 2024 • Zagreb, Croatia
+                  </p>
+                  <p class="text-xs text-gray-500 mt-1">
+                    Being part of a team that provides solutions within the IoT
+                    domain with comprehensive feature sets that enable
+                    end-to-end management from simple use cases to entire
+                    production lines.
+                  </p>
+                </div>
+
+                <div class="relative">
+                  <div
+                    class="absolute -left-[1.85rem] top-2 w-3 h-3 bg-gray-300 rounded-full"
+                  ></div>
+                  <h3 class="font-bold">
+                    Student Front-end developer at
+                    <a
+                      href="https://biss.hr/"
+                      target="_blank"
+                      class="company-link biss-link"
+                      >Biss</a
+                    >
+                  </h3>
+                  <p class="text-sm text-gray-600">
+                    Dec 2022 – Apr 2023 • Zagreb, Croatia
+                  </p>
+                  <p class="text-xs text-gray-500 mt-1">
+                    Helped create EduS a platform to help with administrative
+                    tasks for universities.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Education -->
+          <section class="border border-gray-200 p-4 rounded-sm relative">
+            <h2 class="mono text-sm text-[--accent] mb-4">EDUCATION_</h2>
+            <!-- Similar structure to Experience -->
+            <div class="relative border-gray-200 flex flex-col gap-4">
+              <!-- Timeline items with improved structure -->
+              <div class="relative">
+                <h3 class="font-bold">
+                  Master of Computer Science,
+                  <a
+                    href="https://en.uit.no/startsida"
+                    target="_blank"
+                    class="company-link uit-link"
+                    >UiT Arctic University of Norway</a
+                  >
+                </h3>
+                <p class="text-sm text-gray-600">
+                  Aug 2024 – Jun 2026 • Tromsø, Norway
+                </p>
+                <p class="text-xs text-gray-500 mt-1">
+                  Focusing on distributed systems, the advanced side of
+                  databases and computer security.
+                </p>
+              </div>
+
+              <div class="relative">
+                <h3 class="font-bold">
+                  Bachelor of Informatics,
+                  <a
+                    href="https://www.foi.unizg.hr/en"
+                    target="_blank"
+                    class="company-link zagreb-link"
+                    >Faculty of Organisation and Informatics</a
+                  >, University of Zagreb
+                </h3>
+                <p class="text-sm text-gray-600">
+                  Sep 2019 – Sep 2023 • Varaždin, Croatia
+                </p>
+                <p class="text-xs text-gray-500 mt-1">
+                  Core studies in programming, databases, software engineering,
+                  and information systems design.
+                </p>
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <!-- Right Column -->
+        <div class="w-72">
+          <!-- Key Skills -->
+          <section class="mb-6 mt-6">
+            <h2 class="mono text-sm text-[--accent] mb-3">SKILLS_</h2>
+            <div class="skills-grid">
+              <div class="skill-tag">React</div>
+              <div class="skill-tag">TypeScript</div>
+              <div class="skill-tag">UI/UX</div>
+              <div class="skill-tag">Git</div>
+              <div class="skill-tag">Android/Kotlin</div>
+              <div class="skill-tag">C#</div>
+            </div>
+          </section>
+
+          <!-- Skills & Achievements -->
+          <div class="diagonal-split p-6 rounded-lg mb-6">
+            <h2 class="mono text-sm text-[--accent] mb-4">ACHIEVEMENTS_</h2>
+            <ul class="space-y-2 text-sm">
+              <li class="flex items-start gap-2">
+                <span class="mono text-[--accent]">▹</span>
+                <span
+                  ><a
+                    href="https://stemgames.hr/en/#pll_switcher"
+                    target="_blank"
+                    class="link-hover stem-link"
+                    >STEM Games</a
+                  >
+                  2023: 4th place in competitive programming, machine learning
+                  and full stack development</span
+                >
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="mono text-[--accent]">▹</span>
+                <span
+                  >Highly proficient and
+                  <a
+                    href="https://www.ets.org/"
+                    target="_blank"
+                    class="link-hover toefl-link"
+                    >TOEFL</a
+                  >
+                  certified in the English language</span
+                >
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="mono text-[--accent]">▹</span>
+                <span>
+                  Student Gaming Hub at
+                  <a
+                    href="https://www.foi.unizg.hr/en"
+                    target="_blank"
+                    class="company-link zagreb-link"
+                    >FOI</a
+                  >: C# team development
+                </span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="mono text-[--accent]">▹</span>
+                <span
+                  >Design work for
+                  <a
+                    href="https://stak.foi.hr/"
+                    target="_blank"
+                    class="link-hover stak-link"
+                    >St@k</a
+                  >
+                  student magazine</span
+                >
+              </li>
+            </ul>
+          </div>
+
+          <!-- Courses -->
+          <section>
+            <h2 class="mono text-sm text-[--accent] mb-4">COURSES_</h2>
+            <!-- Course listings -->
+            <ul class="space-y-3 text-sm">
+              <li class="flex items-start gap-2">
+                <span class="mono text-[--accent]">▹</span>
+                <div>
+                  <div class="font-medium">
+                    Android course by
+                    <a
+                      href="https://infinum.com/"
+                      target="_blank"
+                      class="company-link infinum-link"
+                      >Infinum</a
+                    >
+                  </div>
+                  <div class="text-xs text-gray-500">Jul 2022 – Aug 2022</div>
+                  <div class="text-xs text-gray-500 mt-1">
+                    Mobile development fundamentals, UI components, and app
+                    architecture in Kotlin.
+                  </div>
+                </div>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="mono text-[--accent]">▹</span>
+                <div>
+                  <div class="font-medium">
+                    React course by
+                    <a
+                      href="https://www.speck.agency/"
+                      target="_blank"
+                      class="company-link speck-link"
+                      >Speck</a
+                    >
+                  </div>
+                  <div class="text-xs text-gray-500">Mar 2022 – Jun 2022</div>
+                  <div class="text-xs text-gray-500 mt-1">
+                    Component-based architecture, state management, and modern
+                    front-end practices.
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </section>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>
