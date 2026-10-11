@@ -1,0 +1,968 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Dorian Badel - Software Developer</title>
+    <link rel="icon" type="image/x-icon" href="./user.svg" />
+    <meta name="viewport" content="width=210mm, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@400;500;600;700;800&display=swap"
+    />
+    <style>
+      /* ============================================================
+         Palette — Flexoki (stephango.com/flexoki) on a white page
+         ============================================================ */
+      :root {
+        --paper: #ffffff; /* white for print */
+        --ink: #100f0f;
+        --base-50: #f2f0e5;
+        --base-100: #e6e4d9;
+        --base-150: #dad8ce;
+        --base-200: #cecdc3;
+        --base-300: #b7b5ac;
+        --base-400: #9f9d96;
+        --base-500: #878580;
+        --base-600: #6f6e69;
+        --base-700: #575653;
+        --base-800: #403e3c;
+        --base-900: #282726;
+        --base-950: #1c1b1a;
+
+        --red: #af3029;
+        --red-400: #d14d41;
+        --orange: #bc5215;
+        --yellow: #ad8301;
+        --green: #66800b;
+        --cyan: #24837b;
+        --blue: #205ea6;
+        --purple: #5e409d;
+        --magenta: #a02f6f;
+
+        /* Brand colors (link hover) */
+        --softcap: #1da1f2;
+        --leapwise: #c7d55c;
+        --biss: #253364;
+        --uit: #123247;
+        --zagreb: #be2741;
+        --email: #664af5;
+        --github: #333333;
+        --linkedin: #0077b5;
+        --stem: #008000;
+        --toefl: #1b212a;
+
+        /* Roles */
+        --accent: var(--red);
+        --tx: var(--ink);
+        --tx-2: var(--base-700);
+        --tx-3: var(--base-600);
+        --tx-4: var(--base-400);
+        --line: var(--base-300); /* card borders */
+        --line-2: var(--base-150); /* inner rules */
+        --grid: var(--base-100);
+
+        /* Type scale */
+        --f-mono: "Space Mono", ui-monospace, monospace;
+        --f-sans: "Inter", system-ui, sans-serif;
+        --fs-label: 10.5px; /* mono labels, dates, card titles */
+        --fs-body: 12px; /* descriptions, meta */
+        --fs-title: 13.5px; /* entry titles */
+        --fs-lead: 13px; /* about paragraph */
+
+        /* Rhythm */
+        --page-pad: 9mm;
+        --gap: 3mm;
+        --card-pad: 12px;
+        --card-pad-y: 11px;
+      }
+
+      /* ============================================================
+         Base
+         ============================================================ */
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        font-family: var(--f-sans);
+        color: var(--tx);
+        background: var(--base-50);
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+      h1,
+      h2,
+      h3,
+      p,
+      ul {
+        margin: 0;
+      }
+      ul {
+        padding: 0;
+        list-style: none;
+      }
+      .mono {
+        font-family: var(--f-mono);
+      }
+
+      @page {
+        size: A4;
+        margin: 0;
+      }
+      @media print {
+        body {
+          background: var(--paper);
+          display: block;
+        }
+        .no-print {
+          display: none !important;
+        }
+        .page {
+          box-shadow: none;
+        }
+      }
+
+      /* ============================================================
+         Page
+         ============================================================ */
+      .page {
+        width: 210mm;
+        height: 297mm;
+        padding: var(--page-pad);
+        background: var(--paper);
+        box-shadow: 0 20px 60px rgba(28, 27, 26, 0.15);
+        display: grid;
+        grid-template-rows: auto 1fr auto;
+        gap: var(--gap);
+        overflow: hidden;
+      }
+      .columns {
+        display: grid;
+        grid-template-columns: 1fr 0.62fr;
+        gap: var(--gap);
+        min-height: 0;
+      }
+      .column {
+        display: flex;
+        flex-direction: column;
+        gap: var(--gap);
+        min-height: 0;
+      }
+      .column > .card:last-child {
+        flex: 1;
+      }
+
+      /* ============================================================
+         Card
+         ============================================================ */
+      .card {
+        border: 1px solid var(--line);
+        border-radius: 3px;
+        background: var(--paper);
+        display: flex;
+        flex-direction: column;
+        min-height: 0;
+        position: relative;
+      }
+      .card__head {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px var(--card-pad);
+        border-bottom: 1px solid var(--line-2);
+        font-family: var(--f-mono);
+        font-size: var(--fs-label);
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--tx);
+      }
+      .card__head::before {
+        content: "";
+        width: 7px;
+        height: 7px;
+        background: var(--hue, var(--accent));
+        flex: none;
+      }
+      .card__body {
+        padding: var(--card-pad-y) var(--card-pad);
+        flex: 1;
+        min-height: 0;
+      }
+
+      /* ============================================================
+         Header card
+         ============================================================ */
+      .header {
+        display: grid;
+        grid-template-columns: auto 1fr auto;
+        gap: 20px;
+        align-items: center;
+        padding: 16px var(--card-pad) 16px 16px;
+      }
+      .photo {
+        width: 96px;
+        height: 96px;
+        display: block;
+        object-fit: cover;
+        border: 1px solid var(--ink);
+        box-shadow: 4px 4px 0 var(--base-200);
+        border-radius: 2px;
+      }
+      .name {
+        font-size: 34px;
+        font-weight: 800;
+        letter-spacing: -0.02em;
+        line-height: 1;
+        text-transform: uppercase;
+      }
+      .role {
+        margin-top: 8px;
+        font-size: 14px;
+        font-weight: 600;
+        line-height: 1.2;
+      }
+      .degree {
+        margin-top: 4px;
+        font-family: var(--f-mono);
+        font-size: var(--fs-label);
+        letter-spacing: 0.04em;
+        color: var(--accent);
+      }
+      /* anime.js-style leader-line spec list */
+      .spec {
+        width: 250px;
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        font-family: var(--f-mono);
+        font-size: var(--fs-label);
+        line-height: 1.3;
+      }
+      .spec li {
+        display: flex;
+        align-items: baseline;
+        gap: 8px;
+        white-space: nowrap;
+      }
+      .spec .k {
+        color: var(--tx-3);
+      }
+      .spec .l {
+        flex: 1;
+        height: 1px;
+        background: var(--base-300);
+        align-self: center;
+        min-width: 10px;
+      }
+      .spec .v {
+        color: var(--tx);
+      }
+
+      /* ============================================================
+         About
+         ============================================================ */
+      .lead {
+        font-size: var(--fs-lead);
+        line-height: 1.55;
+        color: var(--tx-2);
+      }
+
+      /* ============================================================
+         Entries (education, experience)
+         ============================================================ */
+      .entries {
+        display: flex;
+        flex-direction: column;
+        gap: 13px;
+      }
+      .entry {
+        display: flex;
+        align-items: flex-start;
+        gap: 8px;
+      }
+      .entry .when {
+        flex: 0 0 70px;
+        font-family: var(--f-mono);
+        font-size: var(--fs-label);
+        line-height: 1.4;
+        color: var(--tx-3);
+        padding-top: 2px;
+      }
+      .entry .lead-line {
+        flex: 0 0 12px;
+        height: 1px;
+        background: var(--base-300);
+        margin-top: 8px;
+      }
+      .entry .what {
+        flex: 1;
+        min-width: 0;
+      }
+      .entry h3 {
+        font-size: var(--fs-title);
+        font-weight: 700;
+        line-height: 1.25;
+      }
+      .entry .org {
+        margin-top: 1px;
+        font-size: var(--fs-body);
+        line-height: 1.4;
+        color: var(--tx-2);
+      }
+      .entry p {
+        margin-top: 3px;
+        font-size: var(--fs-body);
+        line-height: 1.45;
+        color: var(--tx-3);
+      }
+      .entry p strong {
+        font-weight: 600;
+        color: var(--tx-2);
+      }
+      .entry.is-current .lead-line {
+        background: var(--accent);
+      }
+      .entry.is-current .when {
+        color: var(--accent);
+      }
+
+      /* ============================================================
+         Skills — chips on grid paper
+         ============================================================ */
+      .card--skills .card__body {
+        background-image:
+          linear-gradient(var(--grid) 1px, transparent 1px),
+          linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+        background-size: 14px 14px;
+        background-position: -1px -1px;
+      }
+      .skill-group + .skill-group {
+        margin-top: 10px;
+      }
+      .skill-group__label {
+        font-family: var(--f-mono);
+        font-size: var(--fs-label);
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--tx-3);
+        margin-bottom: 5px;
+      }
+      .chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 5px 6px;
+      }
+      .chip {
+        font-size: 11.5px;
+        font-weight: 500;
+        line-height: 1;
+        padding: 4px 7px;
+        border: 1px solid var(--base-800);
+        border-radius: 2px;
+        background: var(--paper);
+        box-shadow: 2px 2px 0 var(--base-200);
+      }
+
+      /* ============================================================
+         Lists (coursework, achievements)
+         ============================================================ */
+      .list {
+        display: flex;
+        flex-direction: column;
+        gap: 9px;
+      }
+      .list li {
+        display: flex;
+        align-items: flex-start;
+        gap: 8px;
+        font-size: var(--fs-body);
+        line-height: 1.45;
+        color: var(--tx-2);
+      }
+      .list li::before {
+        content: "";
+        flex: none;
+        width: 5px;
+        height: 5px;
+        margin-top: 6px;
+        background: var(--hue, var(--accent));
+      }
+      .list .t {
+        font-weight: 600;
+        color: var(--tx);
+      }
+      .list .d {
+        margin-top: 2px;
+        color: var(--tx-3);
+      }
+
+      /* ============================================================
+         Blueprint decorations (print-safe, low ink)
+         ============================================================ */
+      .deco {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        pointer-events: none;
+        border-bottom-right-radius: 3px;
+      }
+      /* git-graph sketch */
+      .deco--git {
+        width: 200px;
+        height: 96px;
+        padding: 0 12px 10px 0;
+      }
+      .deco--git svg {
+        display: block;
+        width: 100%;
+        height: 100%;
+        overflow: visible;
+      }
+      .deco--git path {
+        fill: none;
+        stroke: var(--base-200);
+        stroke-width: 1.25;
+        stroke-linecap: round;
+      }
+      .deco--git path.hot {
+        stroke: var(--red-400);
+      }
+      .deco--git circle {
+        fill: var(--paper);
+        stroke: var(--base-300);
+        stroke-width: 1.25;
+      }
+      .deco--git circle.hot {
+        stroke: var(--red-400);
+      }
+      .deco--git circle.merge {
+        fill: var(--base-300);
+      }
+      .deco--git text {
+        font-family: var(--f-mono);
+        font-size: 8px;
+        fill: var(--base-400);
+        letter-spacing: 0.05em;
+      }
+      .deco--git text.hot {
+        fill: var(--red-400);
+      }
+
+      /* postage stamp with dot-grid Croatia, hanging over the card corner */
+      .deco--stamp {
+        width: 176px;
+        height: 112px;
+        right: -14px;
+        bottom: -30px;
+        padding: 0;
+        transform: rotate(-4deg);
+        transform-origin: 75% 50%;
+        z-index: 2;
+      }
+      .deco--stamp svg {
+        display: block;
+        width: 100%;
+        height: 100%;
+        overflow: visible;
+      }
+      .deco--stamp text {
+        font-family: var(--f-mono);
+        fill: var(--base-600);
+      }
+      .deco--stamp .title {
+        font-size: 7.5px;
+        letter-spacing: 0.18em;
+      }
+      .deco--stamp .small {
+        font-size: 5.5px;
+        letter-spacing: 0.08em;
+      }
+      .deco--stamp .perf {
+        fill: var(--paper);
+        stroke: var(--base-300);
+        stroke-width: 2.2;
+        stroke-dasharray: 0 4.25;
+        stroke-linecap: round;
+      }
+      .deco--stamp .frame {
+        fill: none;
+        stroke: var(--base-200);
+        stroke-width: 1;
+      }
+      .deco--stamp .map circle {
+        fill: var(--base-700);
+      }
+      .deco--stamp .mark {
+        fill: none;
+        stroke: var(--base-400);
+        stroke-width: 1;
+        stroke-linecap: round;
+      }
+      .deco--stamp .mark.thin {
+        stroke-width: 0.5;
+      }
+      .deco--stamp .ring {
+        font-size: 5.4px;
+        letter-spacing: 0.2em;
+        fill: var(--base-500);
+      }
+      .deco--stamp .date {
+        font-size: 6px;
+        font-weight: 400;
+        letter-spacing: 0.08em;
+        fill: var(--base-500);
+      }
+
+      /* ============================================================
+         Footer strip
+         ============================================================ */
+      .footer {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        font-family: var(--f-mono);
+        font-size: var(--fs-label);
+        letter-spacing: 0.08em;
+        color: var(--tx-3);
+        padding-top: 2px;
+      }
+      .footer .crumbs {
+        display: flex;
+        gap: 14px;
+      }
+      .footer .crumbs span + span::before {
+        content: "/";
+        color: var(--base-300);
+        margin-right: 14px;
+      }
+
+      /* ============================================================
+         Screen-only print button
+         ============================================================ */
+      .print-btn {
+        position: fixed;
+        top: 16px;
+        right: 16px;
+        font: 600 13px/1 var(--f-sans);
+        color: var(--paper);
+        background: var(--ink);
+        border: 0;
+        border-radius: 6px;
+        padding: 10px 14px;
+        cursor: pointer;
+        box-shadow: 3px 3px 0 var(--base-300);
+      }
+      .print-btn:hover {
+        background: var(--accent);
+      }
+
+      /* ============================================================
+         Link hover animations (screen only)
+         ============================================================ */
+      .link-hover {
+        position: relative;
+        text-decoration: none;
+        transition: color 0.3s ease;
+        padding-bottom: 1px;
+      }
+      .link-hover::after {
+        content: "";
+        position: absolute;
+        width: 0;
+        height: 1px;
+        bottom: 0;
+        left: 0;
+        background-color: var(--accent);
+        transition:
+          width 0.3s ease,
+          background-color 0.3s ease;
+      }
+      .link-hover:hover {
+        color: var(--accent);
+      }
+      .link-hover:hover::after {
+        width: 100%;
+      }
+
+      .company-link {
+        position: relative;
+        display: inline-block;
+        transition: color 0.3s ease;
+        padding-bottom: 1px;
+      }
+      .company-link::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        height: 1px;
+        transition: width 0.3s ease;
+      }
+      .company-link:hover::after {
+        width: 100%;
+      }
+
+      /* Company specific styling */
+      .softcap-link:hover { color: var(--softcap); }
+      .softcap-link::after { background-color: var(--softcap); }
+      .leapwise-link:hover { color: var(--leapwise); }
+      .leapwise-link::after { background-color: var(--leapwise); }
+      .biss-link:hover { color: var(--biss); }
+      .biss-link::after { background-color: var(--biss); }
+      .uit-link:hover { color: var(--uit); }
+      .uit-link::after { background-color: var(--uit); }
+      .zagreb-link:hover { color: var(--zagreb); }
+      .zagreb-link::after { background-color: var(--zagreb); }
+      .github-link:hover { color: var(--github); }
+      .github-link::after { background-color: var(--github); }
+      .linkedin-link:hover { color: var(--linkedin); }
+      .linkedin-link::after { background-color: var(--linkedin); }
+      .email-link:hover { color: var(--email); }
+      .email-link::after { background-color: var(--email); }
+      .toefl-link:hover { color: var(--toefl); }
+      .toefl-link::after { background-color: var(--toefl); }
+      .stem-link:hover { color: var(--stem); }
+      .stem-link::after { background-color: var(--stem); }
+    </style>
+  </head>
+  <body>
+    <button class="print-btn no-print" onclick="window.print()">
+      Print résumé
+    </button>
+
+    <main class="page">
+      <!-- ================= Header ================= -->
+      <header class="card header">
+        <img src="profile.jpg" alt="Dorian Badel" class="photo" />
+
+        <div>
+          <h1 class="name">Dorian Badel</h1>
+          <div class="role">Software Developer</div>
+          <div class="degree">MSc Computer Science · UiT 2026</div>
+        </div>
+
+        <ul class="spec">
+          <li>
+            <span class="k">email</span><span class="l"></span>
+            <a class="v link-hover email-link" href="mailto:DorianBadel@protonmail.com"
+              >DorianBadel@protonmail.com</a
+            >
+          </li>
+          <li>
+            <span class="k">linkedin</span><span class="l"></span>
+            <a
+              class="v link-hover linkedin-link"
+              href="https://linkedin.com/in/dorian-badel-1b50a2233/"
+              target="_blank"
+              >in/dorian-badel-1b50a2233</a
+            >
+          </li>
+          <li>
+            <span class="k">github</span><span class="l"></span>
+            <a class="v link-hover github-link" href="https://github.com/DorianBadel" target="_blank"
+              >DorianBadel</a
+            >
+          </li>
+          <li>
+            <span class="k">location</span><span class="l"></span>
+            <span class="v">Tromsø, Norway</span>
+          </li>
+        </ul>
+      </header>
+
+      <!-- ================= Body ================= -->
+      <div class="columns">
+        <!-- Left column -->
+        <div class="column">
+          <section class="card" style="--hue: var(--cyan)">
+            <h2 class="card__head">Profile</h2>
+            <div class="card__body">
+              <p class="lead">
+                Computer science graduate (MSc, UiT 2026) with a thesis that
+                lead to building a simulation framework for coordinating
+                heterogeneous UAV fleets under energy and communication
+                constraints. Programs in Python, C++ and CUDA, with three years
+                of professional software web development experience.
+                Interested in computer systems with a social or environmental
+                benefit.
+              </p>
+            </div>
+          </section>
+
+          <section class="card" style="--hue: var(--blue)">
+            <h2 class="card__head">Education</h2>
+            <div class="card__body entries">
+              <div class="entry">
+                <div class="when">Aug 2024<br />– Jun 2026</div>
+                <div class="lead-line"></div>
+                <div class="what">
+                  <h3>Master of Computer Science</h3>
+                  <div class="org">
+                    <a class="company-link uit-link" href="https://en.uit.no/startsida" target="_blank"
+                      >UiT The Arctic University of Norway</a
+                    >
+                    · Tromsø, Norway
+                  </div>
+                  <p>
+                    <strong>Thesis:</strong> Agent-Based Modeling for
+                    Energy-Efficient Multi-UAV IoT Data Collection — a Mesa
+                    simulation framework and comparison of four rule-based
+                    coordination strategies for mission and charging UAV fleets
+                    under battery and communication limits. Supervisors: Phuong
+                    Hoai Ha, Qixia Zhang.
+                  </p>
+                </div>
+              </div>
+
+              <div class="entry">
+                <div class="when">Sep 2019<br />– Sep 2023</div>
+                <div class="lead-line"></div>
+                <div class="what">
+                  <h3>Bachelor of Informatics</h3>
+                  <div class="org">
+                    <a class="company-link zagreb-link" href="https://www.foi.unizg.hr/en" target="_blank"
+                      >Faculty of Organisation and Informatics</a
+                    >, University of Zagreb · Varaždin, Croatia
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section class="card" style="--hue: var(--red)">
+            <h2 class="card__head">Experience</h2>
+            <div class="card__body entries">
+              <div class="entry is-current">
+                <div class="when">Sep 2024<br />– present</div>
+                <div class="lead-line"></div>
+                <div class="what">
+                  <h3>Software Developer</h3>
+                  <div class="org">
+                    <a class="company-link softcap-link" href="https://softcap.no/" target="_blank">SoftCap</a>
+                    · Tromsø, Norway
+                  </div>
+                  <p>
+                    Working on a centralized solution for investment banking
+                    workflows.
+                  </p>
+                </div>
+              </div>
+
+              <div class="entry">
+                <div class="when">Nov 2023<br />– Jul 2024</div>
+                <div class="lead-line"></div>
+                <div class="what">
+                  <h3>Junior Front-end Developer</h3>
+                  <div class="org">
+                    <a class="company-link leapwise-link" href="https://leapwise.co/" target="_blank">Leapwise</a>
+                    · Zagreb, Croatia
+                  </div>
+                  <p>
+                    Part of a team that provides solutions within the IoT
+                    domain. Enabling end-to-end management of IoT devices at
+                    city scale.
+                  </p>
+                </div>
+              </div>
+
+              <div class="entry">
+                <div class="when">Dec 2022<br />– Apr 2023</div>
+                <div class="lead-line"></div>
+                <div class="what">
+                  <h3>Student Front-end Developer</h3>
+                  <div class="org">
+                    <a class="company-link biss-link" href="https://biss.hr/" target="_blank">Biss</a>
+                    · Zagreb, Croatia
+                  </div>
+                  <p>
+                    Creating EduS, a platform for managing University
+                    administration.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="deco deco--git" aria-hidden="true">
+              <svg viewBox="0 0 188 86">
+                <!-- main lane -->
+                <path d="M0 70 H188" />
+                <!-- feature branch: forks, lands back on main -->
+                <path d="M22 70 C34 70 34 46 46 46 H96 C108 46 108 70 120 70" />
+                <!-- current branch: forks and keeps going -->
+                <path class="hot" d="M74 70 C86 70 86 22 98 22 H188" />
+                <!-- commits -->
+                <circle cx="22" cy="70" r="3" />
+                <circle cx="46" cy="46" r="3" />
+                <circle cx="70" cy="46" r="3" />
+                <circle cx="96" cy="46" r="3" />
+                <circle cx="120" cy="70" r="3" class="merge" />
+                <circle cx="150" cy="70" r="3" />
+                <circle cx="98" cy="22" r="3" class="hot" />
+                <circle cx="128" cy="22" r="3" class="hot" />
+                <circle cx="158" cy="22" r="3" class="hot" />
+                <!-- labels -->
+                <text x="58" y="38">feat:UiT-MSc</text>
+                <text x="104" y="14" class="hot">feat:NIBIO?</text>
+                <text x="140" y="82">main</text>
+              </svg>
+            </div>
+          </section>
+        </div>
+
+        <!-- Right column -->
+        <div class="column">
+          <section class="card card--skills" style="--hue: var(--green)">
+            <h2 class="card__head">Skills</h2>
+            <div class="card__body">
+              <div class="skill-group">
+                <div class="skill-group__label">Languages</div>
+                <div class="chips">
+                  <span class="chip">Python</span>
+                  <span class="chip">C++</span>
+                  <span class="chip">C#</span>
+                  <span class="chip">TypeScript</span>
+                </div>
+              </div>
+              <div class="skill-group">
+                <div class="skill-group__label">Parallel &amp; GPU computing</div>
+                <div class="chips">
+                  <span class="chip">CUDA</span>
+                  <span class="chip">pthreads</span>
+                  <span class="chip">MPI</span>
+                </div>
+              </div>
+              <div class="skill-group">
+                <div class="skill-group__label">Simulation &amp; data</div>
+                <div class="chips">
+                  <span class="chip">Agent-based modelling</span>
+                  <span class="chip">Mesa</span>
+                  <span class="chip">scikit-learn</span>
+                  <span class="chip">NumPy</span>
+                  <span class="chip">pandas</span>
+                  <span class="chip">Jupyter</span>
+                </div>
+              </div>
+              <div class="skill-group">
+                <div class="skill-group__label">Systems &amp; tools</div>
+                <div class="chips">
+                  <span class="chip">Distributed systems</span>
+                  <span class="chip">Git</span>
+                  <span class="chip">Unity</span>
+                  <span class="chip">React</span>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section class="card" style="--hue: var(--purple)">
+            <h2 class="card__head">
+              Master's coursework
+            </h2>
+            <ul class="card__body list">
+              <li>
+                <div>
+                  <div class="t">Parallel Programming</div>
+                  <div class="d">
+                    CUDA, pthreads and MPI in C++; assignments in GPU image
+                    processing and parallel brute-force code breaking.
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div class="t">
+                  Distributed Systems · Advanced Distributed Systems
+                </div>
+              </li>
+              <li><div class="t">Advanced Databases</div></li>
+              <li><div class="t">Advanced Computer Security</div></li>
+              <li><div class="t">GameLab</div></li>
+            </ul>
+          </section>
+
+          <section class="card" style="--hue: var(--orange)">
+            <h2 class="card__head">Achievements</h2>
+            <ul class="card__body list">
+              <li>
+                <span
+                  ><a class="link-hover stem-link" href="https://stemgames.hr/en/#pll_switcher" target="_blank"
+                    >STEM Games</a
+                  >
+                  2023: 4th place in competitive programming, machine learning
+                  and full stack development</span
+                >
+              </li>
+              <li>
+                <span
+                  >Highly proficient and
+                  <a class="link-hover toefl-link" href="https://www.ets.org/" target="_blank">TOEFL</a>
+                  certified in the English language</span
+                >
+              </li>
+              <li>
+                <span>Driver's licence and frequent driving in practice.</span>
+              </li>
+            </ul>
+            <div class="deco deco--stamp" aria-hidden="true">
+              <svg viewBox="0 0 176 112">
+                <defs>
+                  <path id="pm-top" d="M -20.3 0 A 20.3 20.3 0 0 1 20.3 0" />
+                  <path id="pm-bottom" d="M -20.3 0 A 20.3 20.3 0 0 0 20.3 0" />
+                </defs>
+                <!-- stamp body: 84 x 104 -->
+                <g transform="translate(90 2)">
+                  <rect class="perf" x="1" y="1" width="82" height="102" />
+                  <rect class="frame" x="6" y="6" width="72" height="92" />
+                  <text class="title" x="42" y="18.5" text-anchor="middle">HRVATSKA</text>
+                  <!-- dot-grid map, 60 x 59 -->
+                  <g class="map" transform="translate(12 24)"><circle cx="25.5" cy="1.5" r="0.9"/><circle cx="28.5" cy="1.5" r="0.9"/><circle cx="31.5" cy="1.5" r="0.9"/><circle cx="34.5" cy="1.5" r="0.9"/><circle cx="22.5" cy="4.5" r="0.9"/><circle cx="25.5" cy="4.5" r="0.9"/><circle cx="28.5" cy="4.5" r="0.9"/><circle cx="31.5" cy="4.5" r="0.9"/><circle cx="34.5" cy="4.5" r="0.9"/><circle cx="37.5" cy="4.5" r="0.9"/><circle cx="22.5" cy="7.5" r="0.9"/><circle cx="25.5" cy="7.5" r="0.9"/><circle cx="28.5" cy="7.5" r="0.9"/><circle cx="31.5" cy="7.5" r="0.9"/><circle cx="34.5" cy="7.5" r="0.9"/><circle cx="37.5" cy="7.5" r="0.9"/><circle cx="40.5" cy="7.5" r="0.9"/><circle cx="43.5" cy="7.5" r="0.9"/><circle cx="19.5" cy="10.5" r="0.9"/><circle cx="22.5" cy="10.5" r="0.9"/><circle cx="25.5" cy="10.5" r="0.9"/><circle cx="28.5" cy="10.5" r="0.9"/><circle cx="31.5" cy="10.5" r="0.9"/><circle cx="34.5" cy="10.5" r="0.9"/><circle cx="37.5" cy="10.5" r="0.9"/><circle cx="40.5" cy="10.5" r="0.9"/><circle cx="43.5" cy="10.5" r="0.9"/><circle cx="46.5" cy="10.5" r="0.9"/><circle cx="49.5" cy="10.5" r="0.9"/><circle cx="52.5" cy="10.5" r="0.9"/><circle cx="55.5" cy="10.5" r="0.9"/><circle cx="10.5" cy="13.5" r="0.9"/><circle cx="16.5" cy="13.5" r="0.9"/><circle cx="19.5" cy="13.5" r="0.9"/><circle cx="22.5" cy="13.5" r="0.9"/><circle cx="25.5" cy="13.5" r="0.9"/><circle cx="28.5" cy="13.5" r="0.9"/><circle cx="31.5" cy="13.5" r="0.9"/><circle cx="34.5" cy="13.5" r="0.9"/><circle cx="37.5" cy="13.5" r="0.9"/><circle cx="40.5" cy="13.5" r="0.9"/><circle cx="43.5" cy="13.5" r="0.9"/><circle cx="46.5" cy="13.5" r="0.9"/><circle cx="49.5" cy="13.5" r="0.9"/><circle cx="52.5" cy="13.5" r="0.9"/><circle cx="55.5" cy="13.5" r="0.9"/><circle cx="1.5" cy="16.5" r="0.9"/><circle cx="4.5" cy="16.5" r="0.9"/><circle cx="7.5" cy="16.5" r="0.9"/><circle cx="10.5" cy="16.5" r="0.9"/><circle cx="13.5" cy="16.5" r="0.9"/><circle cx="16.5" cy="16.5" r="0.9"/><circle cx="19.5" cy="16.5" r="0.9"/><circle cx="22.5" cy="16.5" r="0.9"/><circle cx="25.5" cy="16.5" r="0.9"/><circle cx="28.5" cy="16.5" r="0.9"/><circle cx="31.5" cy="16.5" r="0.9"/><circle cx="34.5" cy="16.5" r="0.9"/><circle cx="37.5" cy="16.5" r="0.9"/><circle cx="40.5" cy="16.5" r="0.9"/><circle cx="43.5" cy="16.5" r="0.9"/><circle cx="46.5" cy="16.5" r="0.9"/><circle cx="49.5" cy="16.5" r="0.9"/><circle cx="52.5" cy="16.5" r="0.9"/><circle cx="55.5" cy="16.5" r="0.9"/><circle cx="58.5" cy="16.5" r="0.9"/><circle cx="1.5" cy="19.5" r="0.9"/><circle cx="4.5" cy="19.5" r="0.9"/><circle cx="7.5" cy="19.5" r="0.9"/><circle cx="10.5" cy="19.5" r="0.9"/><circle cx="13.5" cy="19.5" r="0.9"/><circle cx="16.5" cy="19.5" r="0.9"/><circle cx="19.5" cy="19.5" r="0.9"/><circle cx="22.5" cy="19.5" r="0.9"/><circle cx="25.5" cy="19.5" r="0.9"/><circle cx="28.5" cy="19.5" r="0.9"/><circle cx="31.5" cy="19.5" r="0.9"/><circle cx="34.5" cy="19.5" r="0.9"/><circle cx="37.5" cy="19.5" r="0.9"/><circle cx="40.5" cy="19.5" r="0.9"/><circle cx="43.5" cy="19.5" r="0.9"/><circle cx="46.5" cy="19.5" r="0.9"/><circle cx="49.5" cy="19.5" r="0.9"/><circle cx="52.5" cy="19.5" r="0.9"/><circle cx="55.5" cy="19.5" r="0.9"/><circle cx="58.5" cy="19.5" r="0.9"/><circle cx="1.5" cy="22.5" r="0.9"/><circle cx="4.5" cy="22.5" r="0.9"/><circle cx="13.5" cy="22.5" r="0.9"/><circle cx="16.5" cy="22.5" r="0.9"/><circle cx="19.5" cy="22.5" r="0.9"/><circle cx="22.5" cy="22.5" r="0.9"/><circle cx="28.5" cy="22.5" r="0.9"/><circle cx="52.5" cy="22.5" r="0.9"/><circle cx="55.5" cy="22.5" r="0.9"/><circle cx="58.5" cy="22.5" r="0.9"/><circle cx="13.5" cy="25.5" r="0.9"/><circle cx="16.5" cy="25.5" r="0.9"/><circle cx="19.5" cy="25.5" r="0.9"/><circle cx="22.5" cy="25.5" r="0.9"/><circle cx="13.5" cy="28.5" r="0.9"/><circle cx="16.5" cy="28.5" r="0.9"/><circle cx="19.5" cy="28.5" r="0.9"/><circle cx="22.5" cy="28.5" r="0.9"/><circle cx="25.5" cy="28.5" r="0.9"/><circle cx="16.5" cy="31.5" r="0.9"/><circle cx="19.5" cy="31.5" r="0.9"/><circle cx="22.5" cy="31.5" r="0.9"/><circle cx="25.5" cy="31.5" r="0.9"/><circle cx="16.5" cy="34.5" r="0.9"/><circle cx="19.5" cy="34.5" r="0.9"/><circle cx="22.5" cy="34.5" r="0.9"/><circle cx="25.5" cy="34.5" r="0.9"/><circle cx="28.5" cy="34.5" r="0.9"/><circle cx="19.5" cy="37.5" r="0.9"/><circle cx="22.5" cy="37.5" r="0.9"/><circle cx="25.5" cy="37.5" r="0.9"/><circle cx="28.5" cy="37.5" r="0.9"/><circle cx="31.5" cy="37.5" r="0.9"/><circle cx="22.5" cy="40.5" r="0.9"/><circle cx="25.5" cy="40.5" r="0.9"/><circle cx="28.5" cy="40.5" r="0.9"/><circle cx="31.5" cy="40.5" r="0.9"/><circle cx="34.5" cy="40.5" r="0.9"/><circle cx="22.5" cy="43.5" r="0.9"/><circle cx="25.5" cy="43.5" r="0.9"/><circle cx="28.5" cy="43.5" r="0.9"/><circle cx="31.5" cy="43.5" r="0.9"/><circle cx="34.5" cy="43.5" r="0.9"/><circle cx="37.5" cy="43.5" r="0.9"/><circle cx="28.5" cy="46.5" r="0.9"/><circle cx="31.5" cy="46.5" r="0.9"/><circle cx="34.5" cy="46.5" r="0.9"/><circle cx="37.5" cy="46.5" r="0.9"/><circle cx="34.5" cy="49.5" r="0.9"/><circle cx="37.5" cy="49.5" r="0.9"/><circle cx="40.5" cy="49.5" r="0.9"/><circle cx="37.5" cy="52.5" r="0.9"/><circle cx="40.5" cy="52.5" r="0.9"/><circle cx="43.5" cy="52.5" r="0.9"/><circle cx="40.5" cy="55.5" r="0.9"/><circle cx="43.5" cy="55.5" r="0.9"/><circle cx="46.5" cy="55.5" r="0.9"/><circle cx="49.5" cy="55.5" r="0.9"/><circle cx="46.5" cy="58.5" r="0.9"/><circle cx="49.5" cy="58.5" r="0.9"/></g>
+                  <text class="small" x="10" y="94.5">1.00 €</text>
+                  <text class="small" x="74" y="94.5" text-anchor="end">2026</text>
+                </g>
+                <!-- postmark over the left edge -->
+                <g transform="translate(76 72) rotate(-10)">
+                  <circle class="mark" r="26.5" />
+                  <circle class="mark thin" r="24.8" />
+                  <circle class="mark" r="15.8" />
+                  <text class="ring" dominant-baseline="central">
+                    <textPath href="#pm-top" startOffset="50%" text-anchor="middle">TROMSØ</textPath>
+                  </text>
+                  <text class="ring" dominant-baseline="central">
+                    <textPath href="#pm-bottom" startOffset="50%" text-anchor="middle">NORGE</textPath>
+                  </text>
+                  <text class="date" y="-3.4" text-anchor="middle" dominant-baseline="central">11.10</text>
+                  <text class="date" y="3.6" text-anchor="middle" dominant-baseline="central">2026</text>
+                  <path class="mark" d="M-30 -8 q-6 -3 -12 0 t-12 0 t-12 0" />
+                  <path class="mark" d="M-30 0 q-6 -3 -12 0 t-12 0 t-12 0" />
+                  <path class="mark" d="M-30 8 q-6 -3 -12 0 t-12 0 t-12 0" />
+                </g>
+              </svg>
+            </div>
+          </section>
+        </div>
+      </div>
+
+      <!-- ================= Footer ================= -->
+      <footer class="footer">
+        <div class="crumbs">
+          <span>DOC.1110/2026</span>
+          <span>Dorian Badel</span>
+        </div>
+      </footer>
+    </main>
+  </body>
+</html>

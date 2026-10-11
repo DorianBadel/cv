@@ -8,7 +8,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link
       rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@400;600;800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@400;600;700;800&display=swap"
     />
     <style>
       @page {
@@ -23,10 +23,7 @@
         .no-print {
           display: none !important;
         }
-        .print-bg {
-          background: #ffffff !important;
-        }
-        .shadow-lg {
+        .shadow-xl {
           box-shadow: none !important;
         }
         .technical-grid {
@@ -38,8 +35,26 @@
         --secondary: #0055ff;
         --bg: #f4f4f4;
         --text: #1a1a1a;
+        --muted: #4b5563; /* meta lines, lead paragraph, list text */
+        --subtle: #6b7280; /* descriptions */
+        --faint: #9ca3af; /* document number */
+        --rule: #e5e7eb; /* borders, timeline */
+        --rule-strong: #d1d5db; /* separators, inactive timeline dots */
         --body-width: 210mm;
         --body-height: 297mm;
+
+        /* Typographic scale */
+        --fs-sm: 0.875rem; /* 14px: section titles, entry titles, header strip */
+        --lh-sm: 1.25rem;
+        --fs-xs: 0.75rem; /* 12px: meta, descriptions, labels, tags, lists */
+        --lh-xs: 1rem;
+
+        /* Rhythm */
+        --gap-section: 1.5rem; /* between sections */
+        --gap-title: 0.75rem; /* section title -> content */
+        --gap-entry: 1rem; /* between entries in a section */
+        --gap-item: 0.625rem; /* between list items / skill groups */
+        --gap-inner: 0.25rem; /* inside an entry */
 
         /* Brand colors */
         --softcap: #1da1f2;
@@ -58,11 +73,136 @@
       }
       body {
         font-family: "Inter", sans-serif;
+        color: var(--text);
         background: var(--bg);
       }
       .mono {
         font-family: "Space Mono", monospace;
       }
+
+      /* ---------- Typographic roles ---------- */
+      .section {
+        margin-bottom: var(--gap-section);
+      }
+      .section-title {
+        font-family: "Space Mono", monospace;
+        font-size: var(--fs-sm);
+        line-height: var(--lh-sm);
+        color: var(--accent);
+        margin-bottom: var(--gap-title);
+      }
+      .lead {
+        font-size: var(--fs-sm);
+        line-height: 1.625;
+        color: var(--muted);
+      }
+      .entries {
+        display: flex;
+        flex-direction: column;
+        gap: var(--gap-entry);
+      }
+      .entry-title {
+        font-weight: 700;
+        font-size: var(--fs-sm);
+        line-height: var(--lh-sm);
+        color: var(--text);
+      }
+      .entry-meta {
+        font-size: var(--fs-xs);
+        line-height: var(--lh-xs);
+        color: var(--muted);
+      }
+      .entry-body {
+        font-size: var(--fs-xs);
+        line-height: var(--lh-xs);
+        color: var(--subtle);
+        margin-top: var(--gap-inner);
+      }
+      .entry-body strong {
+        font-weight: 600;
+        color: var(--muted);
+      }
+      .sub-label {
+        font-weight: 600;
+        font-size: var(--fs-xs);
+        line-height: var(--lh-xs);
+        color: var(--text);
+      }
+
+      /* ---------- Timeline (experience) ---------- */
+      .timeline {
+        position: relative;
+        padding-left: 1.5rem;
+        border-left: 1px solid var(--rule);
+      }
+      .timeline-item {
+        position: relative;
+      }
+      .timeline-item::before {
+        content: "";
+        position: absolute;
+        left: calc(-1.5rem - 0.375rem - 0.5px);
+        top: calc((var(--lh-sm) - 0.75rem) / 2);
+        width: 0.75rem;
+        height: 0.75rem;
+        border-radius: 9999px;
+        background: var(--rule-strong);
+      }
+      .timeline-item.is-current::before {
+        background: var(--accent);
+      }
+
+      /* ---------- Bullet lists (coursework, achievements) ---------- */
+      .bullet-list {
+        display: flex;
+        flex-direction: column;
+        gap: var(--gap-item);
+      }
+      .bullet-list li {
+        display: flex;
+        align-items: flex-start;
+        gap: 0.5rem;
+        font-size: var(--fs-xs);
+        line-height: var(--lh-xs);
+        color: var(--muted);
+      }
+      .bullet-list li::before {
+        content: "▹";
+        font-family: "Space Mono", monospace;
+        font-size: var(--fs-sm);
+        line-height: var(--lh-xs);
+        color: var(--accent);
+        flex-shrink: 0;
+      }
+      .bullet-list .entry-body {
+        margin-top: 0.125rem;
+      }
+
+      /* ---------- Skills ---------- */
+      .skill-group {
+        margin-bottom: var(--gap-item);
+      }
+      .skill-group:last-child {
+        margin-bottom: 0;
+      }
+      .skill-group-label {
+        margin-bottom: var(--gap-inner);
+      }
+      .skill-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.25rem 0.375rem;
+      }
+      .skill-tag {
+        font-size: var(--fs-xs);
+        line-height: var(--lh-xs);
+        padding: 2px 8px;
+        border-radius: 4px;
+        background: rgba(0, 0, 0, 0.05);
+        display: inline-block;
+      }
+
+      /* ---------- Decoration ---------- */
       .technical-grid {
         background-image: radial-gradient(circle, #ddd 1px, transparent 1px);
         background-size: 20px 20px;
@@ -116,20 +256,6 @@
         transform: rotate(2deg);
       }
 
-      .skills-grid {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 8px;
-      }
-
-      .skill-tag {
-        font-size: 0.7rem;
-        padding: 3px 8px;
-        border-radius: 4px;
-        background: rgba(0, 0, 0, 0.05);
-        display: inline-block;
-      }
-
       .dot-pattern {
         position: absolute;
         bottom: 0;
@@ -169,7 +295,7 @@
         top: -30px;
       }
 
-      /* Custom link styling */
+      /* ---------- Links (screen hover only) ---------- */
       .link-hover {
         position: relative;
         text-decoration: none;
@@ -198,7 +324,6 @@
         width: 100%;
       }
 
-      /* Custom company link styles */
       .company-link {
         position: relative;
         display: inline-block;
@@ -284,7 +409,6 @@
         background-color: var(--linkedin);
       }
 
-      /* Email link */
       .email-link:hover {
         color: var(--email);
       }
@@ -348,8 +472,8 @@
       <!-- Header Section -->
       <header class="p-12 pb-8 relative border-b border-gray-100">
         <!-- Document Number -->
-        <div class="absolute top-8 right-8 mono text-sm text-gray-400">
-          DOC.1707/2026
+        <div class="absolute top-8 right-8 mono text-sm text-[--faint]">
+          DOC.1110/2026
         </div>
 
         <!-- Main Info -->
@@ -360,19 +484,14 @@
               alt="Dorian Badel"
               class="w-32 h-32 object-cover"
             />
-            <div class="absolute -bottom-3 -right-3 text-xs text-gray-400 mono">
-              web • design • development
-            </div>
           </div>
 
           <div class="flex-1">
-            <h1 class="text-5xl font-black tracking-tight">DORIAN BADEL</h1>
-            <div class="flex items-center gap-2 mt-2">
-              <span class="mono text-[--accent] text-sm"
-                >Master of Computer Science</span
-              >
-              <span class="w-12 h-px bg-gray-300"></span>
-              <span class="font-semibold">Developer</span>
+            <h1 class="text-5xl font-extrabold tracking-tight">DORIAN BADEL</h1>
+            <div class="flex items-center gap-2 mt-2 text-sm">
+              <span class="mono text-[--accent]">Master of Computer Science</span>
+              <span class="w-12 h-px bg-[--rule-strong]"></span>
+              <span class="font-semibold">Software Developer</span>
             </div>
 
             <!-- Contact Strip -->
@@ -380,17 +499,16 @@
               <a
                 href="mailto:DorianBadel@protonmail.com"
                 class="link-hover email-link"
+                >DorianBadel@protonmail.com</a
               >
-                DorianBadel@protonmail.com
-              </a>
-              <div class="w-px h-4 bg-gray-300"></div>
+              <div class="w-px h-4 bg-[--rule-strong]"></div>
               <a
                 href="https://linkedin.com/in/dorian-badel-1b50a2233/"
                 target="_blank"
                 class="link-hover linkedin-link"
                 >LinkedIn</a
               >
-              <div class="w-px h-4 bg-gray-300"></div>
+              <div class="w-px h-4 bg-[--rule-strong]"></div>
               <a
                 href="https://github.com/DorianBadel"
                 target="_blank"
@@ -403,123 +521,47 @@
       </header>
 
       <!-- Two Column Layout -->
-      <div class="px-12 flex gap-12">
+      <div class="px-12 pt-6 flex gap-12">
         <!-- Left Column -->
         <div class="flex-1">
-          <!-- About Section -->
-          <section class="mb-6 mt-6">
-            <p class="text-sm text-gray-600 leading-relaxed">
-              Computer science student specializing in web development with a
-              commitment to clean, efficient code. Currently exploring the
-              intersection of computer science principles and unified document
-              standards.
+          <!-- About -->
+          <section class="section">
+            <p class="lead">
+              Computer science graduate (MSc, UiT 2026) with a thesis that lead
+              to building a simulation framework for coordinating heterogeneous
+              UAV fleets under energy and communication constraints. Programs in
+              Python, C++ and CUDA, with three years of professional software
+              web development experience. Interested in computer systems with a
+              social or environmental benefit.
             </p>
           </section>
 
-          <!-- Experience -->
-          <section class="mb-8">
-            <h2 class="mono text-sm text-[--accent] mb-4">EXPERIENCE_</h2>
-            <div class="space-y-6">
-              <div class="relative pl-6 border-l border-gray-200">
-                <!-- Timeline items with improved structure -->
-                <div class="relative mb-6">
-                  <div
-                    class="absolute -left-[1.85rem] top-2 w-3 h-3 bg-[--accent] rounded-full"
-                  ></div>
-                  <h3 class="font-bold">
-                    Software Developer at
-                    <a
-                      href="https://softcap.no/"
-                      target="_blank"
-                      class="company-link softcap-link"
-                      >SoftCap</a
-                    >
-                  </h3>
-                  <p class="text-sm text-gray-600">
-                    Sep 2024 – Present • Tromsø, Norway
-                  </p>
-                  <p class="text-xs text-gray-500 mt-1">
-                    Working on a centralized solution for investment banking
-                    workflows.
-                  </p>
-                </div>
-
-                <div class="relative mb-6">
-                  <div
-                    class="absolute -left-[1.85rem] top-2 w-3 h-3 bg-gray-300 rounded-full"
-                  ></div>
-                  <h3 class="font-bold">
-                    Junior Front-end developer at
-                    <a
-                      href="https://leapwise.co/"
-                      target="_blank"
-                      class="company-link leapwise-link"
-                      >Leapwise</a
-                    >
-                  </h3>
-                  <p class="text-sm text-gray-600">
-                    Nov 2023 – Jul 2024 • Zagreb, Croatia
-                  </p>
-                  <p class="text-xs text-gray-500 mt-1">
-                    Being part of a team that provides solutions within the IoT
-                    domain with comprehensive feature sets that enable
-                    end-to-end management from simple use cases to entire
-                    production lines.
-                  </p>
-                </div>
-
-                <div class="relative">
-                  <div
-                    class="absolute -left-[1.85rem] top-2 w-3 h-3 bg-gray-300 rounded-full"
-                  ></div>
-                  <h3 class="font-bold">
-                    Student Front-end developer at
-                    <a
-                      href="https://biss.hr/"
-                      target="_blank"
-                      class="company-link biss-link"
-                      >Biss</a
-                    >
-                  </h3>
-                  <p class="text-sm text-gray-600">
-                    Dec 2022 – Apr 2023 • Zagreb, Croatia
-                  </p>
-                  <p class="text-xs text-gray-500 mt-1">
-                    Helped create EduS a platform to help with administrative
-                    tasks for universities.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </section>
-
           <!-- Education -->
-          <section class="border border-gray-200 p-4 rounded-sm relative">
-            <h2 class="mono text-sm text-[--accent] mb-4">EDUCATION_</h2>
-            <!-- Similar structure to Experience -->
-            <div class="relative border-gray-200 flex flex-col gap-4">
-              <!-- Timeline items with improved structure -->
-              <div class="relative">
-                <h3 class="font-bold">
+          <section class="section">
+            <h2 class="section-title">EDUCATION_</h2>
+            <div class="entries">
+              <div>
+                <h3 class="entry-title">
                   Master of Computer Science,
                   <a
                     href="https://en.uit.no/startsida"
                     target="_blank"
                     class="company-link uit-link"
-                    >UiT Arctic University of Norway</a
+                    >UiT The Arctic University of Norway</a
                   >
                 </h3>
-                <p class="text-sm text-gray-600">
-                  Aug 2024 – Jun 2026 • Tromsø, Norway
-                </p>
-                <p class="text-xs text-gray-500 mt-1">
-                  Focusing on distributed systems, the advanced side of
-                  databases and computer security.
+                <p class="entry-meta">Aug 2024 – Jun 2026 • Tromsø, Norway</p>
+                <p class="entry-body">
+                  <strong>Thesis:</strong>
+                  Agent-Based Modeling for Energy-Efficient Multi-UAV IoT Data
+                  Collection — a Mesa simulation framework and comparison of
+                  four rule-based coordination strategies for mission and
+                  charging UAV fleets under battery and communication limits.
+                  Supervisors: Phuong Hoai Ha, Qixia Zhang.
                 </p>
               </div>
-
-              <div class="relative">
-                <h3 class="font-bold">
+              <div>
+                <h3 class="entry-title">
                   Bachelor of Informatics,
                   <a
                     href="https://www.foi.unizg.hr/en"
@@ -528,12 +570,63 @@
                     >Faculty of Organisation and Informatics</a
                   >, University of Zagreb
                 </h3>
-                <p class="text-sm text-gray-600">
-                  Sep 2019 – Sep 2023 • Varaždin, Croatia
+                <p class="entry-meta">Sep 2019 – Sep 2023 • Varaždin, Croatia</p>
+              </div>
+            </div>
+          </section>
+
+          <!-- Experience -->
+          <section class="section">
+            <h2 class="section-title">EXPERIENCE_</h2>
+            <div class="timeline entries">
+              <div class="timeline-item is-current">
+                <h3 class="entry-title">
+                  Software Developer at
+                  <a
+                    href="https://softcap.no/"
+                    target="_blank"
+                    class="company-link softcap-link"
+                    >SoftCap</a
+                  >
+                </h3>
+                <p class="entry-meta">Sep 2024 – Present • Tromsø, Norway</p>
+                <p class="entry-body">
+                  Working on a centralized solution for investment banking
+                  workflows.
                 </p>
-                <p class="text-xs text-gray-500 mt-1">
-                  Core studies in programming, databases, software engineering,
-                  and information systems design.
+              </div>
+
+              <div class="timeline-item">
+                <h3 class="entry-title">
+                  Junior Front-end developer at
+                  <a
+                    href="https://leapwise.co/"
+                    target="_blank"
+                    class="company-link leapwise-link"
+                    >Leapwise</a
+                  >
+                </h3>
+                <p class="entry-meta">Nov 2023 – Jul 2024 • Zagreb, Croatia</p>
+                <p class="entry-body">
+                  Part of a team that provides solutions within the IoT domain.
+                  Enabling end-to-end management of IoT devices at city scale.
+                </p>
+              </div>
+
+              <div class="timeline-item">
+                <h3 class="entry-title">
+                  Student Front-end developer at
+                  <a
+                    href="https://biss.hr/"
+                    target="_blank"
+                    class="company-link biss-link"
+                    >Biss</a
+                  >
+                </h3>
+                <p class="entry-meta">Dec 2022 – Apr 2023 • Zagreb, Croatia</p>
+                <p class="entry-body">
+                  Creating EduS a platform for managing University
+                  administration.
                 </p>
               </div>
             </div>
@@ -542,25 +635,89 @@
 
         <!-- Right Column -->
         <div class="w-72">
-          <!-- Key Skills -->
-          <section class="mb-6 mt-6">
-            <h2 class="mono text-sm text-[--accent] mb-3">SKILLS_</h2>
-            <div class="skills-grid">
-              <div class="skill-tag">React</div>
-              <div class="skill-tag">TypeScript</div>
-              <div class="skill-tag">UI/UX</div>
-              <div class="skill-tag">Git</div>
-              <div class="skill-tag">Android/Kotlin</div>
-              <div class="skill-tag">C#</div>
+          <!-- Skills -->
+          <section class="section">
+            <h2 class="section-title">SKILLS_</h2>
+
+            <div class="skill-group">
+              <div class="sub-label skill-group-label">Languages</div>
+              <div class="skill-tags">
+                <span class="skill-tag">Python</span>
+                <span class="skill-tag">C++</span>
+                <span class="skill-tag">C#</span>
+                <span class="skill-tag">TypeScript</span>
+              </div>
+            </div>
+
+            <div class="skill-group">
+              <div class="sub-label skill-group-label">
+                Parallel &amp; GPU computing
+              </div>
+              <div class="skill-tags">
+                <span class="skill-tag">CUDA</span>
+                <span class="skill-tag">pthreads</span>
+                <span class="skill-tag">MPI</span>
+              </div>
+            </div>
+
+            <div class="skill-group">
+              <div class="sub-label skill-group-label">Simulation &amp; data</div>
+              <div class="skill-tags">
+                <span class="skill-tag">Agent-based modelling</span>
+                <span class="skill-tag">Mesa</span>
+                <span class="skill-tag">scikit-learn</span>
+                <span class="skill-tag">NumPy</span>
+                <span class="skill-tag">pandas</span>
+                <span class="skill-tag">Jupyter</span>
+              </div>
+            </div>
+
+            <div class="skill-group">
+              <div class="sub-label skill-group-label">Systems &amp; tools</div>
+              <div class="skill-tags">
+                <span class="skill-tag">Distributed systems</span>
+                <span class="skill-tag">Git</span>
+                <span class="skill-tag">Unity</span>
+                <span class="skill-tag">React</span>
+              </div>
             </div>
           </section>
 
-          <!-- Skills & Achievements -->
-          <div class="diagonal-split p-6 rounded-lg mb-6">
-            <h2 class="mono text-sm text-[--accent] mb-4">ACHIEVEMENTS_</h2>
-            <ul class="space-y-2 text-sm">
-              <li class="flex items-start gap-2">
-                <span class="mono text-[--accent]">▹</span>
+          <!-- Master's coursework -->
+          <section class="section">
+            <h2 class="section-title">MASTER'S COURSEWORK_</h2>
+            <ul class="bullet-list">
+              <li>
+                <div>
+                  <div class="sub-label">Parallel Programming</div>
+                  <div class="entry-body">
+                    CUDA, pthreads and MPI in C++; assignments in GPU image
+                    processing and parallel brute-force code breaking.
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div class="sub-label">
+                  Distributed Systems · Advanced Distributed Systems
+                </div>
+              </li>
+              <li>
+                <div class="sub-label">Advanced Databases</div>
+              </li>
+              <li>
+                <div class="sub-label">Advanced Computer Security</div>
+              </li>
+              <li>
+                <div class="sub-label">GameLab</div>
+              </li>
+            </ul>
+          </section>
+
+          <!-- Achievements -->
+          <section class="section diagonal-split p-6 rounded-lg">
+            <h2 class="section-title">ACHIEVEMENTS_</h2>
+            <ul class="bullet-list">
+              <li>
                 <span
                   ><a
                     href="https://stemgames.hr/en/#pll_switcher"
@@ -572,8 +729,7 @@
                   and full stack development</span
                 >
               </li>
-              <li class="flex items-start gap-2">
-                <span class="mono text-[--accent]">▹</span>
+              <li>
                 <span
                   >Highly proficient and
                   <a
@@ -585,76 +741,8 @@
                   certified in the English language</span
                 >
               </li>
-              <li class="flex items-start gap-2">
-                <span class="mono text-[--accent]">▹</span>
-                <span>
-                  Student Gaming Hub at
-                  <a
-                    href="https://www.foi.unizg.hr/en"
-                    target="_blank"
-                    class="company-link zagreb-link"
-                    >FOI</a
-                  >: C# team development
-                </span>
-              </li>
-              <li class="flex items-start gap-2">
-                <span class="mono text-[--accent]">▹</span>
-                <span
-                  >Design work for
-                  <a
-                    href="https://stak.foi.hr/"
-                    target="_blank"
-                    class="link-hover stak-link"
-                    >St@k</a
-                  >
-                  student magazine</span
-                >
-              </li>
-            </ul>
-          </div>
-
-          <!-- Courses -->
-          <section>
-            <h2 class="mono text-sm text-[--accent] mb-4">COURSES_</h2>
-            <!-- Course listings -->
-            <ul class="space-y-3 text-sm">
-              <li class="flex items-start gap-2">
-                <span class="mono text-[--accent]">▹</span>
-                <div>
-                  <div class="font-medium">
-                    Android course by
-                    <a
-                      href="https://infinum.com/"
-                      target="_blank"
-                      class="company-link infinum-link"
-                      >Infinum</a
-                    >
-                  </div>
-                  <div class="text-xs text-gray-500">Jul 2022 – Aug 2022</div>
-                  <div class="text-xs text-gray-500 mt-1">
-                    Mobile development fundamentals, UI components, and app
-                    architecture in Kotlin.
-                  </div>
-                </div>
-              </li>
-              <li class="flex items-start gap-2">
-                <span class="mono text-[--accent]">▹</span>
-                <div>
-                  <div class="font-medium">
-                    React course by
-                    <a
-                      href="https://www.speck.agency/"
-                      target="_blank"
-                      class="company-link speck-link"
-                      >Speck</a
-                    >
-                  </div>
-                  <div class="text-xs text-gray-500">Mar 2022 – Jun 2022</div>
-                  <div class="text-xs text-gray-500 mt-1">
-                    Component-based architecture, state management, and modern
-                    front-end practices.
-                  </div>
-                </div>
+              <li>
+                <span>Drivers liscence and frequent driving in practice.</span>
               </li>
             </ul>
           </section>
