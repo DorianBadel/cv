@@ -1,0 +1,389 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Dorian Badel - Software Developer CV</title>
+    <meta name="author" content="Dorian Badel" />
+    <meta
+      name="description"
+      content="CV of Dorian Badel, software developer (React, TypeScript, Azure), MSc Computer Science, Tromsø, Norway."
+    />
+    <link rel="icon" type="image/x-icon" href="./user.svg" />
+    <meta name="viewport" content="width=210mm, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@400;600;700;800&display=swap"
+    />
+    <!--
+      Standard CV, written to be read by CV parsers (ATS) as well as people:
+      - one column, so text extracts in reading order
+      - plain section names (Summary, Experience, Education, Skills...)
+      - contact details written out as text, not hidden behind link labels
+      - no decorative text (document numbers, stamps, git graphs)
+    -->
+    <style>
+      @page {
+        size: A4;
+        margin: 0;
+      }
+      :root {
+        --accent: #ff3b30;
+        --text: #1a1a1a;
+        --muted: #4b5563;
+        --subtle: #6b7280;
+        --rule: #e5e7eb;
+        --rule-strong: #d1d5db;
+      }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        font-family: "Inter", sans-serif;
+        color: var(--text);
+        background: #f4f4f4;
+        font-size: 12px;
+        line-height: 1.45;
+      }
+      main {
+        width: 210mm;
+        height: 297mm;
+        margin: 0 auto;
+        background: #fff;
+        padding: 32px 48px;
+        overflow: hidden;
+      }
+      .mono {
+        font-family: "Space Mono", monospace;
+      }
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      /* Header */
+      header {
+        display: flex;
+        gap: 28px;
+        align-items: center;
+        padding-bottom: 16px;
+        border-bottom: 1px solid var(--rule);
+      }
+      .photo-frame {
+        position: relative;
+        flex-shrink: 0;
+      }
+      .photo-frame img {
+        display: block;
+        width: 96px;
+        height: 96px;
+        object-fit: cover;
+      }
+      .photo-frame::before,
+      .photo-frame::after {
+        content: "";
+        position: absolute;
+      }
+      .photo-frame::before {
+        inset: -8px;
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        transform: rotate(-3deg);
+      }
+      .photo-frame::after {
+        inset: -4px;
+        border: 1px solid var(--accent);
+        opacity: 0.5;
+        transform: rotate(2deg);
+      }
+      h1 {
+        font-size: 40px;
+        font-weight: 800;
+        letter-spacing: -0.02em;
+        line-height: 1.1;
+      }
+      .headline {
+        margin-top: 4px;
+        font-size: 14px;
+        font-weight: 600;
+      }
+      .headline .mono {
+        color: var(--accent);
+        font-weight: 400;
+      }
+      .headline .location {
+        font-weight: 400;
+        color: var(--muted);
+      }
+      .contact {
+        margin-top: 10px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 2px 12px;
+        font-size: 11.5px;
+        color: var(--muted);
+      }
+
+      /* Sections */
+      section {
+        margin-top: 12px;
+      }
+      h2 {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-family: "Space Mono", monospace;
+        font-size: 13px;
+        font-weight: 400;
+        color: var(--accent);
+        text-transform: uppercase;
+        margin-bottom: 8px;
+      }
+      /* Accent bar instead of a typed underscore, so parsers read a clean heading */
+      h2::after {
+        content: "";
+        flex: 1;
+        height: 1px;
+        background: var(--rule);
+      }
+      .summary {
+        font-size: 12.5px;
+        color: var(--muted);
+      }
+      .entries {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+      .timeline {
+        padding-left: 20px;
+        border-left: 1px solid var(--rule);
+        margin-left: 5px;
+      }
+      .timeline .entry {
+        position: relative;
+      }
+      .timeline .entry::before {
+        content: "";
+        position: absolute;
+        left: -26px;
+        top: 4px;
+        width: 11px;
+        height: 11px;
+        border-radius: 50%;
+        background: var(--rule-strong);
+      }
+      .timeline .entry.current::before {
+        background: var(--accent);
+      }
+      h3 {
+        font-size: 13.5px;
+        font-weight: 700;
+      }
+      .dates {
+        white-space: nowrap;
+      }
+      .org {
+        color: var(--muted);
+      }
+      .stack {
+        margin-top: 3px;
+        font-size: 11px;
+        color: var(--accent);
+      }
+      ul.bullets {
+        margin-top: 4px;
+        padding-left: 14px;
+        color: var(--subtle);
+      }
+      ul.bullets li {
+        margin-top: 2px;
+      }
+      ul.bullets li::marker {
+        color: var(--accent);
+      }
+      .skills p {
+        margin-top: 2px;
+        color: var(--muted);
+      }
+      .skills strong {
+        color: var(--text);
+      }
+
+      @media print {
+        body {
+          background: #fff;
+        }
+        .no-print {
+          display: none !important;
+        }
+      }
+      .print-btn {
+        position: fixed;
+        top: 16px;
+        right: 16px;
+        background: var(--accent);
+        color: #fff;
+        border: 0;
+        border-radius: 8px;
+        padding: 8px 16px;
+        font: 600 14px "Inter", sans-serif;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <button class="no-print print-btn" onclick="window.print()">
+      Print Resume
+    </button>
+
+    <main>
+      <header>
+        <div class="photo-frame">
+          <img src="profile.jpg" alt="Dorian Badel" />
+        </div>
+        <div>
+          <h1>Dorian Badel</h1>
+          <p class="headline">
+            Software Developer
+            <span class="mono">· MSc Computer Science</span>
+            <span class="location">· Tromsø, Norway</span>
+          </p>
+          <p class="contact">
+            <a href="mailto:DorianBadel@protonmail.com"
+              >DorianBadel@protonmail.com</a
+            >
+            <a href="https://www.linkedin.com/in/dorian-badel-1b50a2233/"
+              >linkedin.com/in/dorian-badel-1b50a2233</a
+            >
+            <a href="https://github.com/DorianBadel">github.com/DorianBadel</a>
+          </p>
+        </div>
+      </header>
+
+      <section>
+        <h2>Summary</h2>
+        <p class="summary">
+          Software developer with three years of professional experience
+          building web applications in React and TypeScript. At SoftCap I work
+          on DealMaker AI, an investment banking platform integrated with
+          Microsoft 365. MSc in Computer Science from UiT The Arctic University
+          of Norway (2026). A background in graphic design means I care about
+          UI/UX as much as the code behind it.
+        </p>
+      </section>
+
+      <section>
+        <h2>Experience</h2>
+        <div class="entries timeline">
+          <div class="entry current">
+            <h3>Software Developer</h3>
+            <p class="org"><a href="https://softcap.no/">SoftCap</a> · Tromsø, Norway · <span class="dates">Sep 2024 – Present</span> (part-time until Aug 2026)</p>
+            <p class="stack mono">
+              React, TypeScript, Vite, Azure, Playwright, Lefthook, Linear
+            </p>
+            <ul class="bullets">
+              <li>
+                Developing DealMaker AI, a platform that takes investment
+                banking deals from idea to completion, integrated with Microsoft
+                365.
+              </li>
+              <li>
+                Built the shared UI component library behind the product's
+                interface, working across design and front end in a team of
+                four.
+              </li>
+              <li>
+                Working with AI coding agents, using Playwright end-to-end tests
+                to prove features work before they ship.
+              </li>
+            </ul>
+          </div>
+
+          <div class="entry">
+            <h3>Junior Front-end Developer</h3>
+            <p class="org"><a href="https://leapwise.co/">Leapwise</a> · Zagreb, Croatia · <span class="dates">Nov 2023 – Jul 2024</span></p>
+            <p class="stack mono">React, TanStack Query, Tailwind</p>
+            <ul class="bullets">
+              <li>
+                Built a web tool that lets cities monitor and configure any
+                number of smart devices, such as street lamps and parking
+                sensors.
+              </li>
+              <li>
+                One of four front-end developers; joined through the student
+                internship programme.
+              </li>
+            </ul>
+          </div>
+
+          <div class="entry">
+            <h3>Front-end Developer</h3>
+            <p class="org"><a href="https://biss.hr/">Biss</a> · Zagreb, Croatia · <span class="dates">Dec 2022 – Apr 2023</span></p>
+            <p class="stack mono">React, TypeScript, Ant Design, Jira</p>
+            <ul class="bullets">
+              <li>
+                One of three developers on EduS, a platform covering the full
+                thesis and specialisation process: submission, review and
+                defence.
+              </li>
+              <li>Extended the platform to support student work placements.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2>Education</h2>
+        <div class="entries">
+          <div class="entry">
+            <h3>Master of Computer Science</h3>
+            <p class="org">UiT The Arctic University of Norway · Tromsø, Norway · <span class="dates">Aug 2024 – Jun 2026</span></p>
+            <ul class="bullets">
+              <li>
+                Thesis: Agent-Based Modeling for Energy-Efficient Multi-UAV IoT
+                Data Collection.
+              </li>
+              <li>
+                Coursework: Parallel Programming, Distributed Systems, Advanced
+                Distributed Systems, Advanced Databases, Advanced Computer
+                Security.
+              </li>
+            </ul>
+          </div>
+          <div class="entry">
+            <h3>Bachelor of Informatics</h3>
+            <p class="org">Faculty of Organisation and Informatics, University of Zagreb ·
+              Varaždin, Croatia · <span class="dates">Sep 2019 – Sep 2023</span></p>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2>Skills</h2>
+        <div class="skills">
+          <p><strong>Languages:</strong> TypeScript, JavaScript, C#, Python, C++, Kotlin, HTML, CSS</p>
+          <p><strong>Front end:</strong> React, Vite, Tailwind, TanStack Query, Zustand, Zod, React Hook Form, Material UI, Ant Design</p>
+          <p><strong>Cloud &amp; tooling:</strong> Azure, Microsoft 365 integration, Playwright, Git, Lefthook</p>
+          <p><strong>Design:</strong> UI/UX design, design systems, component libraries</p>
+          <p><strong>Spoken:</strong> English (fluent, TOEFL certified), Croatian (native)</p>
+        </div>
+      </section>
+
+      <section>
+        <h2>Achievements &amp; Courses</h2>
+        <ul class="bullets">
+          <li>
+            STEM Games 2023: 4th place as a team of four in competitive
+            programming, machine learning and full stack development.
+          </li>
+          <li>
+            Courses: Android development in Kotlin (Infinum, 2022), React web
+            development (Speck, 2022).
+          </li>
+          <li>Designer of the St@k student magazine (2019 – 2021).</li>
+        </ul>
+      </section>
+    </main>
+  </body>
+</html>
